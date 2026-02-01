@@ -57,11 +57,41 @@ and this is also known as the Lomuto partition */
     https://www.youtube.com/watch?v=v-1EGgaTFuw
     and elsewhere.
     This sorts the array, and returns the time (in ms) it takes to run */
-    long sortHoare(int arr[], int low, int high)
-    {
-        return 0; // temporary, replace this
-    // TODO...
-    }
+    int partitionHoare(int arr[], int low, int high) { 
+        int midPoint = low + (high - low) / 2;
+        int pivot = arr[midPoint]; 
+        int i = (low - 1); // index of larger element 
+        int j = (high + 1); // index of larger element 
+
+        for(;;){
+            for(++i;arr[i] < pivot;++i);
+            for (j--; arr[j] > pivot; j--);
+            
+            if(i >= j){
+                return j;
+            }      
+            int temp = arr[i];
+            arr[i] = arr[j]; 
+            arr[j] = temp;              
+        }
+    } 
+
+    long sortHoare(int arr[], int low, int high) { 
+        //return 0; // temporary, replace this 
+        // TODO... 
+        long startTime = System.currentTimeMillis(); 
+        if (low < high) { 
+        /* partIdx is partitioning index, arr[partIdx] is now at right place */ 
+        int partIdx = partitionHoare(arr, low, high); 
+        
+        // Recursively sort elements before partition and after partition 
+        sort(arr, low, partIdx - 1); 
+        sort(arr, partIdx + 1, high); 
+        
+        } 
+        return System.currentTimeMillis() - startTime;
+    } 
+
     /* This is a method to print array of size n.
     * NOTE: use of this method is optional.
     * But this can be helpful to debug your code to make sure it really sorts.
@@ -132,6 +162,7 @@ and this is also known as the Lomuto partition */
         // TODO - actual do something with parameter tryShortCircuit
         long startTime = System.currentTimeMillis();
         int len = arr.length;
+        boolean isSorted = true;
         for (int i = 0; i < len - 1; i++)
         {
             for (int j = 0; j < len - 1; j++)
@@ -140,7 +171,12 @@ and this is also known as the Lomuto partition */
                     int temp = arr[j+1];
                     arr[j+1] = arr[j];
                     arr[j] = temp;
+                    isSorted = false;
+                
                 }
+            }
+            if (tryShortCircuit && isSorted == true) {
+                break;
             }
         }
         return System.currentTimeMillis() - startTime;
