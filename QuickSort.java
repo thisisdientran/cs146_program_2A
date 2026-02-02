@@ -2,12 +2,12 @@ import java.util.Random;
 // Java program for implementations of QuickSort
 public class QuickSort
 {
-/* This method takes last element as pivot, places the pivot element
-at its correct position in sorted array, and places all smaller
-(smaller than pivot) to left of pivot and all greater elements
-to the right of pivot.
-This is most-frequently seen implementation of QuickSort partition,
-and this is also known as the Lomuto partition */
+    /* This method takes last element as pivot, places the pivot element
+    at its correct position in sorted array, and places all smaller
+    (smaller than pivot) to left of pivot and all greater elements
+    to the right of pivot.
+    This is most-frequently seen implementation of QuickSort partition,
+    and this is also known as the Lomuto partition */
     int partition(int arr[], int low, int high)
     {
         int pivot = arr[high];
@@ -107,7 +107,7 @@ and this is also known as the Lomuto partition */
         }
         System.out.println();
     }
-        /* method to get an already sorted array of size arraySize */
+    /* method to get an already sorted array of size arraySize */
     static int[] getAscendingArray(int arraySize)
     {
         int[] newArray = new int[arraySize];
@@ -172,10 +172,10 @@ and this is also known as the Lomuto partition */
                     arr[j+1] = arr[j];
                     arr[j] = temp;
                     isSorted = false;
-                
                 }
             }
             if (tryShortCircuit && isSorted == true) {
+                System.out.println("Array is already sorted, short-circuiting bubble sort.");
                 break;
             }
         }
@@ -185,7 +185,7 @@ and this is also known as the Lomuto partition */
     public static void main(String args[])
     {
         // NOTE: if you get StackOverflowError then decrease NUM_ITEMS below
-        final int NUM_ITEMS = 6000;
+        final int NUM_ITEMS = 25000;
         QuickSort ob = new QuickSort();
         int arr[] = getAscendingArray(NUM_ITEMS);
         long ascTime = ob.sort(arr, 0, NUM_ITEMS - 1);
@@ -228,6 +228,10 @@ and this is also known as the Lomuto partition */
         System.out.println("sorted desc array, time in ms: " + Long.toString(descTime));
         System.out.println("sorted random array, time in ms: " + Long.toString(randomTime));
         System.out.println("sorted same values array, time: " + Long.toString(sameTime));
+        
+        
+        
+        System.out.println("\nBubble Sort times with possible short circuit follow:");
         arr = getAscendingArray(NUM_ITEMS);
         ascTime = ob.bubbleSort(arr, true);
         arr = getDescendingArray(NUM_ITEMS);
@@ -237,7 +241,6 @@ and this is also known as the Lomuto partition */
         //printArray(arr); // NOTE: can verify sorted correctly (for small arrays)
         arr = getSameArray(NUM_ITEMS);
         sameTime = ob.bubbleSort(arr, true);
-        System.out.println("\nBubble Sort times with possible short circuit follow:");
         System.out.println("sorted asc array, time in ms: " + Long.toString(ascTime));
         System.out.println("sorted desc array, time in ms: " + Long.toString(descTime));
         System.out.println("sorted random array, time in ms: " + Long.toString(randomTime));
